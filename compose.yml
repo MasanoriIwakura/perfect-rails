@@ -1,0 +1,9 @@
+services:
+  app:
+    build: ./hello_rails
+    platform: linux/amd64
+    volumes:
+      - ./hello_rails:/app
+      - /app/vendor/bundle
+    ports:
+      - 3000:3000
