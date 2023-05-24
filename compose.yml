@@ -4,6 +4,23 @@ services:
     platform: linux/amd64
     volumes:
       - ./hello_rails:/app
-      - /app/vendor/bundle
+      # - /app/vendor/bundle
     ports:
       - 3000:3000
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0.32
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - db-volume:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_DATABASE=hello_rails
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+
+volumes:
+  db-volume:
