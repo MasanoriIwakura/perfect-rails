@@ -22,11 +22,11 @@ WORKDIR /app
 COPY --chown=rails Gemfile Gemfile.lock /app/
 # COPY --chown=rails Gemfile Gemfile.lock package.json yarn.lock /app/
 
-RUN bundle config set path vendor/bundle && bundle install
+RUN bundle install
 # RUN yarn install
 
 COPY --chown=rails . /app
 
-# RUN bin/rails assets:precompile
+RUN bin/rails assets:precompile
 
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]
